@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
 
     @GetMapping("/navigation")
-    public String showNavigation(){
+    public String showNavigation() {
         return "navigation";
     }
 
