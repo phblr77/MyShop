@@ -2,6 +2,8 @@ package ru.geekbrains.shop.services;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.geekbrains.shop.model.Product;
 import ru.geekbrains.shop.repositories.ProductRepository;
@@ -21,28 +23,11 @@ public class ProductService {
         return productRepository.findById(id).get();
     }
 
-    public void saveNewProduct(String title, int price) {
-        Product product = new Product();
-        product.setTitle(title);
-        product.setPrice(price);
-        if (product.getPrice() <= 0) {
-            return;
-        }
-        productRepository.save(product);
+    public Page<Product> findPage(int pageIndex, int pageSize) {
+        return productRepository.findAll(PageRequest.of(pageIndex, pageSize));
     }
-
-    public Product saveNewProduct(Product product) {
-        return productRepository.save(product);
-    }
-
 
     public void deleteById(Long id) {
         productRepository.deleteById(id);
     }
-
-
-    public boolean existsById(Long id) {
-        return productRepository.existsById(id);
-    }
-
 }
